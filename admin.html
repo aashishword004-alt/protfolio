@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ashish Parmar - Software Developer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+  <style>
+    body {
+      background: #181a20;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    .hero {
+      background: radial-gradient(circle, #262626 0%, #181a20 100%);
+      padding: 60px 0;
+      min-height: 450px;
+    }
+
+    .hero-title,
+    .hero h3,
+    .hero h5 {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .hero h5 {
+      animation-delay: 0.3s;
+    }
+
+    .hero-title {
+      animation-delay: 0.6s;
+    }
+
+    .hero h3 {
+      animation-delay: 0.9s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-wrapper {
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, #fc466b 0%, #3f5efb 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      position: relative;
+      opacity: 0.9;
+    }
+
+    .profile-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .btn-primary {
+      background-color: #fc466b;
+      border: none;
+    }
+
+    .btn-outline-light {
+      border-color: #fc466b;
+      color: #fc466b;
+    }
+
+    .services-icon {
+      font-size: 1.7rem;
+      margin-right: 12px;
+      color: #fc466b;
+    }
+
+    .stats {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .nav-link,
+    .navbar-brand {
+      color: #fff !important;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1.5px solid #32343b;
+      margin: 20px 0;
+      opacity: 0.5;
+    }
+
+    .about-card {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .about-card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 767px) {
+      .hero-title {
+        font-size: 1.45rem;
+      }
+
+      .profile-wrapper {
+        width: 180px;
+        height: 180px;
+      }
+
+      .profile-img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    .nav-link {
+      position: relative;
+      color: #fff !important;
+      transition: color 0.3s ease, transform 0.3s ease;
+      padding-bottom: 4px;
+      cursor: pointer;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: #fc466b;
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fc466b !important;
+      transform: scale(1.05);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .gradient-card {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      border-radius: 0.75rem;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgb(101 41 255 / 0.3);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gradient-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 0 25px rgba(252, 70, 107, 0.8);
+    }
+
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      border-radius: 50%;
+      background-color: rgba(255 255 255 / 0.15);
+      color: white;
+      font-size: 18px;
+      margin: 0 0.3rem;
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .social-icon:hover {
+      background-color: white;
+      color: #2575fc;
+      transform: scale(1.2);
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    /* About list icons */
+    .about-list {
+      list-style: none;
+      padding: 0;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .about-list li {
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .about-list i {
+      color: #ffd700;
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    /* Stats hover effect */
+    .stats-container .stat-box {
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      padding: 10px 20px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-bottom: 10px;
+    }
+
+    .stats-container .stat-box:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    }
+
+    .stats {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffd700;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg navbar-dark px-4 fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <!-- Icon before name -->
+      <i class="bi bi-person-circle me-2" style="font-size:1.5rem; color:#fc466b;"></i>
+      Ashish Parmar
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"> <a class="nav-link" href="#hero">Home</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#about">About</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#project">Project</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#contact">Contact</a> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="container hero position-relative" style="padding-top:100px;">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <h5>Hello<span class="text-danger">.</span></h5>
+        <h2 class="hero-title">I'm Ashish Parmar</h2>
+        <h3 class="mb-3 fw-bold typewriter">Software Developer</h3>
+        <div class="d-flex gap-2 mb-4">
+          <a class="btn btn-primary" href="#project">Got a project?</a>
+          <a class="btn btn-outline-light" href="resuume.html">My resume</a>
+        </div>
+        <div class="d-flex flex-wrap gap-3 mt-3 text-secondary" style="font-size:15px;">
+          <span>HTML5</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>Node.js</span>
+          <span>React</span>
+          <span>Git</span>
+          <span>Github</span>
+        </div>
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="profile-wrapper">
+          <img src="img/photomy.jpg" alt="Ashish Parmar Profile Image" class="profile-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- About Section -->
+  <section id="about" class="container py-5">
+    <div class="about-card" id="aboutCard">
+      <h4>About Me</h4>
+      <ul class="about-list">
+        <li><i class="bi bi-mortarboard"></i> <strong>BCA (2023–2026)</strong> – Swami Sahajanand College of Computer Science, Bhavnagar (MKBU)</li>
+        <li><i class="bi bi-journal-bookmark"></i> Full Stack Development Course – <strong>The Easy Learn Academy</strong> (HTML, CSS, Bootstrap, ReactJS, Node.js, SQL)</li>
+        <li><i class="bi bi-code-slash"></i> Started with <strong>HTML, CSS, Bootstrap</strong></li>
+        <li><i class="bi bi-lightning-charge"></i> Learned <strong>ReactJS, Node.js, SQL</strong></li>
+        <li><i class="bi bi-award"></i> Completed Full Stack Training at <strong>The Easy Learn Academy</strong></li>
+        <li><i class="bi bi-book"></i> Currently pursuing <strong>BCA (2023–2026)</strong> at Swami Sahajanand College of Computer Science, MKBU</li>
+      </ul>
+      <div class="d-flex gap-5 mt-4 stats-container">
+        <div class="stat-box">
+          <div class="stats mb-1">0</div>
+          <div>Completed Projects</div>
+        </div>
+        <div class="stat-box">
+          <div class="stats mb-1">0</div>
+          <div>Years of experience</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Section -->
+  <section id="project" class="container py-5">
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-3">
+        <div class="gradient-card mb-3">
+          <p class="mb-4">HTML / CSS / BOOTSTRAP</p>
+          <div>
+            <a href="#" class="social-icon"><i class="bi bi-filetype-html"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-filetype-css"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-bootstrap"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="gradient-card mb-3">
+          <h3>JavaScript</h3>
+          <div>
+            <a href="#" class="social-icon"><i class="bi bi-filetype-js"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="gradient-card mb-3">
+          <h3>React</h3>
+          <div>
+            <a href="#" class="social-icon"><i class="bi bi-filetype-jsx"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      
+  
+  
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Contact Section -->
+  <section id="contact" class="container py-4 text-center">
+    <h5>Contact</h5>
+    <p>Email: <a href="aashishword004@gmail.com" style="color:#fc466b;">aashishword004@gmail.com</a></p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/parmar-aashish-763602370/" style="color:#fc466b;">https://www.linkedin.com/in/parmar-aashish-763602370/</a></p>
+    <p>GitHub: <a href="https://github.com/aashishword004-alt" style="color:#fc466b;">https://github.com/aashishword004-alt</a></p>
+  </section>
+
+  <footer class="container py-4 text-center">
+    <small> Ashish Parmar</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar smooth scroll
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Fade-in body
+    window.addEventListener('load', () => {
+      document.body.classList.add("loaded");
+    });
+
+    // Animate About section on scroll
+    const aboutCard = document.getElementById("aboutCard");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          aboutCard.classList.add("show");
+        }
+      });
+    }, { threshold: 0.3 });
+
+    observer.observe(aboutCard);
+
+    // Navbar scroll effect
+    window.addEventListener("scroll", () => {
+      const navbar = document.querySelector(".navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.add("shadow-lg", "bg-dark");
+      } else {
+        navbar.classList.remove("shadow-lg", "bg-dark");
+      }
+    });
+  </script>
+</body>
+</html>
